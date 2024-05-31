@@ -16,11 +16,11 @@ services:
 
   web:
     build: .
-    command: bash -c "cd /app && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    command: bash -c "/app/wait-for-it.sh db:3306 -- python manage.py migrate && python manage.py runserver 0.0.0.0:8083"
     volumes:
       - .:/app
     ports:
-      - "8000:8000"
+      - "8083:8083"
     depends_on:
       - db
 
